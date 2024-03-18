@@ -1,0 +1,170 @@
+<div class="body">
+  <form [formGroup]="registrarForm">
+    <div class="divValue" id="divValue">
+      <label class="label" for="">Nome</label>
+      <input
+        formControlName="nome"
+        class="inputNome"
+        type="text"
+        placeholder="Digite seu nome"
+      />
+    </div>
+    <div class="divValue">
+      <label class="label" for="">E-Mail</label>
+      <input
+        formControlName="email"
+        class="inputEmail"
+        type="text"
+        placeholder="Digite seu melhor e-mail"
+      />
+    </div>
+    <div class="divValue">
+      <label class="label" for="">CPF</label>
+      <input
+        formControlName="cpf"
+        class="inputCpf"
+        type="text"
+        placeholder="Digite CPF aqui "
+        (input)="formatarCPF($event)"
+        [(ngModel)]="cpfInput"
+      />
+    </div>
+    <div class="divContainer">
+      <div class="divRow">
+        <div class="separacao">
+          <label class="label" for="">CEP</label>
+          <input
+            formControlName="cep"
+            class="inputCEP"
+            type="text"
+            placeholder="CEP"
+            (input)="buscarEnderecoPorCep(registrarForm?.get('cep')?.value)"
+          />
+        </div>
+        <div class="separacao">
+          <label class="label" for="">Estado</label>
+          <input
+            class="inputEstado"
+            formControlName="estado"
+            type="text"
+            placeholder="Estado"
+          />
+        </div>
+      </div>
+      <div class="divRow">
+        <div class="separacao">
+          <label class="label" for="">Endereço</label>
+          <input
+            class="inputEndereco"
+            formControlName="inputEndereco"
+            type="text"
+            placeholder="Endereço"
+          />
+        </div>
+        <div class="separacao">
+          <label class="label" for="">Cidade</label>
+          <input
+            class="inputCidade"
+            formControlName="cidade"
+            type="text"
+            placeholder="Cidade"
+          />
+        </div>
+      </div>
+      <label class="labelFormPag">Forma de Pagamento</label>
+      <div class="barra"></div>
+      <div class="divRowCard">
+        <div class="divSeparacao">
+          <input
+            formControlName="cdcredito"
+            class="checkbox"
+            type="checkbox"
+            (change)="handleChangeCreditCard($event)"
+          />
+          <label class="label">Cartão de Crédito</label>
+        </div>
+        <div class="divSeparacao2">
+          <input
+            formControlName="boleto"
+            class="checkbox"
+            type="checkbox"
+            (change)="handleChangeBoleto($event)"
+          />
+          <label class="label">Boleto Bancário</label>
+        </div>
+      </div>
+
+      <div class="divContainer" id="divContainer">
+        <div class="divRow">
+          <div class="separacao">
+            <label class="label">Nome do Cartão</label>
+            <input
+              formControlName="nomeCard"
+              class="inputCEP"
+              type="text"
+              placeholder="Nome impresso no cartão"
+            />
+          </div>
+          <div class="separacao">
+            <label class="label">Data de Expiração</label>
+            <div class="divDt">
+              <select
+                formControlName="dtExpiracao"
+                class="inputDt"
+                type="text"
+                placeholder="Mês"
+              >
+                <option value="null" disabled selected hidden>Mês</option>
+                <option *ngFor="let month of months" [value]="month.value">
+                  {{ month.name }}
+                </option>
+              </select>
+              <select
+                formControlName="ano"
+                class="inputDt2"
+                type="text"
+                placeholder="Ano"
+              >
+                <option value="null" disabled selected hidden>Ano</option>
+                <option *ngFor="let year of years" [value]="year">
+                  {{ year }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="divRow">
+          <div class="separacao">
+            <label class="label" for="">Número do Cartão</label>
+            <input
+              formControlName="numbCard"
+              class="inputEndereco"
+              type="text"
+              placeholder="0000 0000 0000 0000"
+            />
+          </div>
+          <div class="separacao">
+            <label class="label" for="">Código de Segurança</label>
+            <input
+              formControlName="codSeg"
+              class="inputCidade"
+              type="text"
+              placeholder="XXX"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="barra2"></div>
+    <div class="divEnd">
+      <label class="labelPag" for="">Seu Cartão será debitado em R$ </label>
+      <button class="btnMat" type="button" (click)="salvar()">
+        REALIZAR MATRÍCULA
+      </button>
+      <label class="labelInfos" for=""
+        >Informações seguras e criptografadas</label
+      >
+    </div>
+  </form>
+</div>

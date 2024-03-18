@@ -22,21 +22,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let cliente of clientes, let i = index">
+        <tr *ngFor="let cliente of clientes; let i = index">
           <td>{{ cliente.nome }}</td>
           <td>{{ cliente.email }}</td>
           <td>{{ cliente.cpf | cpf }}</td>
           <td>{{ cliente.criadoEm }}</td>
           <td class="thNone">
             <button class="btnTD" title="Editar" (click)="editarDados(i)">
-              <img src="../../../../assets/Editar.png" alt="" />
+              <img class="imgTD1" src="../../../../assets/Editar.png" alt="" />
             </button>
             <button
               class="btnTD"
               title="Excluir"
               (click)="excluirCliente(cliente)"
             >
-              <img src="../../../../assets/Excluir.png" alt="" />
+              <img class="imgTD2" src="../../../../assets/Excluir.png" alt="" />
             </button>
           </td>
         </tr>
@@ -67,7 +67,11 @@
           </td>
           <td class="thNone">
             <button class="btnTD" title="Incluir" (click)="incluirCliente()">
-              <img src="../../../../assets/Botão Incluir.png" alt="" />
+              <img
+                class="imgTD3"
+                src="../../../../assets/Botão Incluir.png"
+                alt=""
+              />
             </button>
           </td>
         </tr>

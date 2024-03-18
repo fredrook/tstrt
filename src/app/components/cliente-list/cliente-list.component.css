@@ -2,6 +2,7 @@
   padding: 1px;
   margin-left: 256px;
   margin-right: 256px;
+  min-height: 52vh;
 }
 
 h3 {
@@ -110,6 +111,19 @@ thead th {
 .btnTD {
   background: none;
   width: 40px;
+  margin-left: 16px;
+}
+
+.imgTD1{
+  margin-left: -16px;
+}
+
+.imgTD2{
+  margin-left: -32px;
+}
+
+.imgTD3{
+  margin-left: -16px;
 }
 
 .trOpaco {

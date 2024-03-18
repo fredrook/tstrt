@@ -11,14 +11,13 @@ export class ClienteListComponent implements OnInit {
   clientesFiltrados: any[] = [];
   cpfInput: string = '';
   criadoEmInput: string = '';
-  nomePesquisado: string = ''; // Adicionando uma propriedade para armazenar o nome pesquisado
+  nomePesquisado: string = '';
 
   constructor() {}
 
   ngOnInit(): void {}
 
   incluirCliente(): void {
-    // Obter os valores dos campos de entrada
     const nome = (<HTMLInputElement>document.getElementById('nomeInput')).value;
     const email = (<HTMLInputElement>document.getElementById('emailInput'))
       .value;
@@ -63,7 +62,6 @@ export class ClienteListComponent implements OnInit {
       return;
     }
 
-    // Criar um novo objeto cliente
     const novoCliente = {
       nome: nome,
       email: email,
@@ -71,13 +69,10 @@ export class ClienteListComponent implements OnInit {
       criadoEm: criadoEm,
     };
 
-    // Adicionar o novo cliente ao array de clientes
     this.clientes.push(novoCliente);
 
-    // Salvar os clientes no localStorage
     localStorage.setItem('clientes', JSON.stringify(this.clientes));
 
-    // Limpar os campos de entrada
     (<HTMLInputElement>document.getElementById('nomeInput')).value = '';
     (<HTMLInputElement>document.getElementById('emailInput')).value = '';
     (<HTMLInputElement>document.getElementById('cpfInput')).value = '';
@@ -92,9 +87,9 @@ export class ClienteListComponent implements OnInit {
 
   formatarCPF(event: any): void {
     let cpf = event.target.value;
-    cpf = cpf.replace(/\D/g, ''); // Remove caracteres não numéricos
+    cpf = cpf.replace(/\D/g, '');
 
-    if (cpf.length > 11) cpf = cpf.slice(0, 11); // Limita o CPF a 11 dígitos
+    if (cpf.length > 11) cpf = cpf.slice(0, 11);
 
     if (cpf.length > 3) {
       cpf = cpf.replace(/(\d{3})/, '$1.');
@@ -111,11 +106,9 @@ export class ClienteListComponent implements OnInit {
 
   formatarData(event: any): void {
     let data = event.target.value;
-    data = data.replace(/\D/g, ''); // Remove caracteres não numéricos
+    data = data.replace(/\D/g, '');
 
-    // Verifica se a data possui o formato esperado
     if (data.length === 8) {
-      // Formata a data com a máscara dd/MM/yyyy
       data =
         data.substring(0, 2) +
         '/' +
@@ -123,9 +116,7 @@ export class ClienteListComponent implements OnInit {
         '/' +
         data.substring(4);
     } else if (data.length > 8) {
-      // Se o comprimento for maior que 8, apaga o último caractere
       data = data.substring(0, 8);
-      // Atualiza o valor do campo de entrada com a máscara dd/MM/yyyy
       data =
         data.substring(0, 2) +
         '/' +
@@ -134,7 +125,6 @@ export class ClienteListComponent implements OnInit {
         data.substring(4);
     }
 
-    // Atualiza o valor do campo de entrada
     event.target.value = data;
 
     this.criadoEmInput = data;
@@ -163,7 +153,6 @@ export class ClienteListComponent implements OnInit {
   editarDados(indice: number): void {
     const cliente = this.clientes[indice];
 
-    // Abre um modal de edição com os campos preenchidos
     Swal.fire({
       title: 'Editar Cliente',
       html: `
@@ -183,16 +172,11 @@ export class ClienteListComponent implements OnInit {
         const criadoEm = (<HTMLInputElement>document.getElementById('criadoEm'))
           .value;
 
-        // Aqui você pode implementar a lógica para validar e salvar as edições
-        // Por exemplo, validar se os campos estão preenchidos corretamente
-
-        // Atualiza os dados do cliente no array
         cliente.nome = nome;
         cliente.email = email;
         cliente.cpf = cpf;
         cliente.criadoEm = criadoEm;
 
-        // Atualiza o localStorage com os novos dados
         localStorage.setItem('clientes', JSON.stringify(this.clientes));
 
         Swal.fire({
@@ -205,7 +189,6 @@ export class ClienteListComponent implements OnInit {
   }
 
   excluirCliente(cliente: any) {
-    // Exibir o alerta de confirmação para exclusão do cliente
     Swal.fire({
       icon: 'warning',
       title: 'Exclusão de Cliente',
@@ -215,16 +198,12 @@ export class ClienteListComponent implements OnInit {
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Verificar se o cliente está presente no array de clientes
         const index = this.clientes.indexOf(cliente);
         if (index !== -1) {
-          // Remover o cliente do array de clientes
           this.clientes.splice(index, 1);
 
-          // Atualizar o localStorage com o novo array de clientes
           localStorage.setItem('clientes', JSON.stringify(this.clientes));
 
-          // Exibir mensagem de sucesso
           Swal.fire({
             icon: 'success',
             title: 'Cliente excluído!',

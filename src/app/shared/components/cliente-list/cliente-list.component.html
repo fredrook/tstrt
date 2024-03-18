@@ -1,0 +1,77 @@
+<div class="body">
+  <h3>Lista de Clientes</h3>
+  <div class="barra"></div>
+  <label for="searchInput">Nome do Cliente:</label>
+  <input
+    type="text"
+    id="searchInput"
+    placeholder="Digite o nome do cliente"
+    [(ngModel)]="nomePesquisado"
+    (ngModelChange)="buscarCliente()"
+  />
+
+  <div class="cliente-list">
+    <table>
+      <thead>
+        <tr>
+          <th style="width: 22%">Nome</th>
+          <th style="width: 22%">Email</th>
+          <th style="width: 22%">CPF</th>
+          <th style="width: 20%">Criado Em</th>
+          <th style="width: 10%" class="thNone"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let cliente of clientes, let i = index">
+          <td>{{ cliente.nome }}</td>
+          <td>{{ cliente.email }}</td>
+          <td>{{ cliente.cpf | cpf }}</td>
+          <td>{{ cliente.criadoEm }}</td>
+          <td class="thNone">
+            <button class="btnTD" title="Editar" (click)="editarDados(i)">
+              <img src="../../../../assets/Editar.png" alt="" />
+            </button>
+            <button
+              class="btnTD"
+              title="Excluir"
+              (click)="excluirCliente(cliente)"
+            >
+              <img src="../../../../assets/Excluir.png" alt="" />
+            </button>
+          </td>
+        </tr>
+        <tr class="trOpaco">
+          <td class="tdOpaco">
+            <input type="text" id="nomeInput" placeholder="Exemplo de nome" />
+          </td>
+          <td class="tdOpaco">
+            <input type="text" id="emailInput" placeholder="exemplo@mail.com" />
+          </td>
+          <td class="tdOpaco">
+            <input
+              type="text"
+              id="cpfInput"
+              placeholder="000.000.000-00"
+              (input)="formatarCPF($event)"
+              [(ngModel)]="cpfInput"
+            />
+          </td>
+          <td class="tdOpaco">
+            <input
+              type="text"
+              id="criadoEmInput"
+              placeholder="00/00/0000"
+              [(ngModel)]="criadoEmInput"
+              (input)="formatarData($event)"
+            />
+          </td>
+          <td class="thNone">
+            <button class="btnTD" title="Incluir" (click)="incluirCliente()">
+              <img src="../../../../assets/Botão Incluir.png" alt="" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

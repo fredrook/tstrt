@@ -1,0 +1,161 @@
+.body {
+  padding: 1px;
+  margin-left: 256px;
+  margin-right: 256px;
+}
+
+h3 {
+  margin-top: 62px;
+
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 18px;
+
+  color: #377dc0;
+
+  margin-bottom: 15px;
+}
+
+.barra {
+  border: 3px solid #eef3f7;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+label {
+  margin-top: 24px;
+
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 18px;
+}
+
+input {
+  margin-top: 5px;
+
+  width: 100%;
+  height: 50px;
+  background: #d9d9d981;
+
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 18px;
+}
+
+.cliente-list {
+}
+
+table {
+  border-collapse: collapse;
+  width: 121.4%;
+
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+th {
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+
+  padding: 0px 0px;
+
+  color: black;
+
+  margin-top: 16px;
+  margin-left: 42px;
+}
+
+th {
+  width: 228px;
+  height: 46px;
+  border: 1px solid #77a7d4;
+  padding: 0px 20px;
+  text-align: left;
+
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+td {
+  width: 228px;
+  height: 46px;
+  border: 1px solid #77a7d4;
+  padding: 0px 20px;
+  text-align: left;
+
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+thead th {
+  background-color: none;
+  color: rgb(0, 0, 0);
+}
+
+.thNone {
+  border: none;
+  padding: 0px;
+  display: flex;
+}
+
+.btnTD {
+  background: none;
+  width: 40px;
+}
+
+.trOpaco {
+  background: none;
+}
+
+.tdOpaco {
+  color: #f2f2f2;
+}
+
+#nomeInput {
+  padding: 0px;
+  border: none;
+  background: none;
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+#emailInput {
+  padding: 0px;
+  border: none;
+  background: none;
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+#cpfInput {
+  padding: 0px;
+  border: none;
+  background: none;
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+#criadoEmInput {
+  padding: 0px;
+  border: none;
+  background: none;
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 18px;
+}

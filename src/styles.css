@@ -1,0 +1,139 @@
+/* Reset de estilos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos básicos de corpo e fonte */
+body {
+  font-family: "Koh Santepheap", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit; /* Herda a cor do texto padrão */
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Títulos */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 10px;
+}
+
+/* Parágrafos */
+p {
+  margin-bottom: 20px;
+}
+
+/* Lista não ordenada */
+ul {
+  list-style-type: none;
+}
+
+/* Botões */
+button,
+.btn {
+  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+/* Formulários */
+input,
+textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Espaçamento */
+.mb-1 {
+  margin-bottom: 10px;
+}
+
+.mb-2 {
+  margin-bottom: 20px;
+}
+
+/* Cores */
+.primary {
+  color: #007bff; /* Azul primário */
+}
+
+.secondary {
+  color: #6c757d; /* Cinza escuro */
+}
+
+.success {
+  color: #28a745; /* Verde */
+}
+
+.danger {
+  color: #dc3545; /* Vermelho */
+}
+
+.warning {
+  color: #ffc107; /* Amarelo */
+}
+
+.info {
+  color: #17a2b8; /* Azul claro */
+}
+
+.koh-santepheap-thin {
+  font-family: "Koh Santepheap", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.koh-santepheap-light {
+  font-family: "Koh Santepheap", serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.koh-santepheap-regular {
+  font-family: "Koh Santepheap", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.koh-santepheap-bold {
+  font-family: "Koh Santepheap", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.koh-santepheap-black {
+  font-family: "Koh Santepheap", serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.inter-unique {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "slnt" 0;
+}

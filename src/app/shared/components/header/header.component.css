@@ -1,0 +1,51 @@
+.header {
+  background-color: #0a0a3c;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: 100vw;
+  height: 69px;
+
+  margin-right: 30px;
+}
+
+.imgLogoTipo {
+  margin-left: 30px;
+
+  width: 25px;
+  height: 25px;
+}
+
+.imgLogoElipse {
+  width: 10px;
+  height: 10px;
+}
+
+.btn1 {
+  border: none;
+  background: none;
+  margin-right: 15px;
+
+  color: white;
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.btn2 {
+  border: none;
+  background: none;
+  margin-left: 15px;
+
+  color: white;
+
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+}

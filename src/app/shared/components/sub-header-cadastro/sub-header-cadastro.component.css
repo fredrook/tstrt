@@ -1,0 +1,16 @@
+.sub-header {
+  background: #d9d9d982;
+  width: 100vw;
+  height: 137px;
+}
+
+.h1Lista {
+  font-family: "Koh Santepheap", sans-serif;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 18px;
+
+  padding: 58px 255px;
+
+  color: black;
+}

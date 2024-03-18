@@ -36,19 +36,48 @@ export class CadastroClienteComponent implements OnInit {
   ) {
     this.registrarForm = this.formBuilder.group({
       nome: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
-      cpf: [null, Validators.required],
-      cep: [null, Validators.required],
+      email: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern(
+            '^\\w+([.-]?\\w+)*@\\w+([.-]?\\w+)*(\\.\\w{2,3})+$'
+          ),
+        ],
+      ],
+      cpf: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern('[0-9]*'),
+          Validators.maxLength(11),
+        ],
+      ],
+      cep: [null, [Validators.required, Validators.pattern('[0-9]*')]],
       estado: [''],
       inputEndereco: [''],
       cidade: [''],
       cdcredito: [false],
       boleto: [false],
-      nomeCard: [null, Validators.required],
-      dtExpiracao: [null, Validators.required],
+      nomeCard:  [null, Validators.pattern('[^0-9]*')],
+      dataExpiracao: [null, Validators.required],
       ano: [null, Validators.required],
-      numbCard: [null, Validators.required],
-      codSeg: [null, Validators.required],
+      numbCard: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern('[0-9]*'),
+          Validators.maxLength(16),
+        ],
+      ],
+      codSeg: [
+        null,
+        [
+          Validators.required,
+          Validators.pattern('[0-9]*'),
+          Validators.maxLength(4),
+        ],
+      ],
     });
   }
 
@@ -59,17 +88,81 @@ export class CadastroClienteComponent implements OnInit {
     for (let year = currentYear; year <= currentYear + 10; year++) {
       this.years.push(year);
     }
+
+    this.registrarForm.get('estado')?.disable();
+    this.registrarForm.get('inputEndereco')?.disable();
+    this.registrarForm.get('cidade')?.disable();
   }
 
   ngAfterViewInit(): void {
     if (this.inputCEP) {
-      this.inputCEP.nativeElement.addEventListener('change', () => {
-        const cepValue: string = this.inputCEP.nativeElement.value;
-        if (cepValue.length === 8) {
-          this.buscarEnderecoPorCep(cepValue);
-        }
+      this.inputCEP.nativeElement.addEventListener('input', () => {
+        let cepValue: string = this.inputCEP.nativeElement.value;
+        cepValue = cepValue.replace(/\D/g, '');
+        this.registrarForm.patchValue({
+          cep: cepValue,
+        });
       });
     }
+
+    const cpfInput = this.registrarForm.get('cpf');
+    if (cpfInput) {
+      cpfInput.valueChanges.subscribe((value) => {
+        let cpfValue: string = value.replace(/\D/g, '');
+        if (cpfValue.length > 11) {
+          cpfValue = cpfValue.slice(0, 11);
+        }
+        this.registrarForm.patchValue({
+          cpf: cpfValue,
+        });
+      });
+    }
+
+    const cepInput = this.registrarForm.get('cep');
+    if (cepInput) {
+      cepInput.valueChanges.subscribe((value) => {
+        let cepValue: string = value.replace(/\D/g, '');
+        this.registrarForm.patchValue({
+          cep: cepValue,
+        });
+      });
+    }
+
+    const numbCardInput = this.registrarForm.get('numbCard');
+    if (numbCardInput) {
+      numbCardInput.valueChanges.subscribe((value) => {
+        let cardNumber: string = value.replace(/\D/g, '');
+        if (cardNumber.length > 16) {
+          cardNumber = cardNumber.slice(0, 16);
+        }
+        this.registrarForm.patchValue({
+          numbCard: cardNumber,
+        });
+      });
+    }
+
+    const codSegInput = this.registrarForm.get('codSeg');
+    if (codSegInput) {
+      codSegInput.valueChanges.subscribe((value) => {
+        let codSegNumber: string = value.replace(/\D/g, '');
+        if (codSegNumber.length > 4) {
+          codSegNumber = codSegNumber.slice(0, 4);
+        }
+        this.registrarForm.patchValue({
+          codSeg: codSegNumber,
+        });
+      });
+    }
+
+    const nomeCardInput = this.registrarForm.get('nomeCard');
+  if (nomeCardInput) {
+    nomeCardInput.valueChanges.subscribe((value) => {
+      let nomeCardValue: string = value.replace(/[0-9]/g, '');
+      this.registrarForm.patchValue({
+        nomeCard: nomeCardValue,
+      });
+    });
+  }
   }
 
   buscarEnderecoPorCep(cep: string) {
@@ -148,12 +241,24 @@ export class CadastroClienteComponent implements OnInit {
   }
 
   salvar(): void {
+    const cdCreditoChecked = this.registrarForm.get('cdcredito')?.value;
+    const boletoChecked = this.registrarForm.get('boleto')?.value;
+  
+    if (!cdCreditoChecked && !boletoChecked) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Por favor, selecione pelo menos uma forma de pagamento.',
+      });
+      return;
+    }
+  
     if (this.registrarForm.valid) {
       const clienteData = this.registrarForm.value;
       localStorage.setItem('cliente', JSON.stringify(clienteData));
       this.isCadastrado = true;
       localStorage.setItem('isCadastrado', JSON.stringify(true));
-
+  
       Swal.fire({
         icon: 'success',
         title: 'Cadastro realizado com sucesso!',
@@ -163,11 +268,36 @@ export class CadastroClienteComponent implements OnInit {
         this.router.navigate(['/listagem']);
       });
     } else {
+      let errorMessage = 'Por favor, preencha todos os campos corretamente:\n';
+      Object.keys(this.registrarForm.controls).forEach(field => {
+        const control = this.registrarForm.get(field);
+        if (control && control.errors) {
+          const errors = control.errors;
+          Object.keys(errors).forEach(keyError => {
+            switch (keyError) {
+              case 'required':
+                errorMessage += `- O campo ${field} é obrigatório.\n`;
+                break;
+              case 'pattern':
+                errorMessage += `- O campo ${field} não está no formato correto.\n`;
+                break;
+              case 'maxlength':
+                errorMessage += `- O campo ${field} excede o limite de caracteres.\n`;
+                break;
+              default:
+                errorMessage += `- ${errors[keyError]}\n`;
+                break;
+            }
+          });
+        }
+      });
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
-        text: 'Por favor, preencha todos os campos corretamente.',
+        text: errorMessage,
       });
     }
   }
+  
+  
 }

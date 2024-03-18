@@ -29,7 +29,7 @@ export class CadastroGuard implements CanActivate {
 }
 
 const routes: Routes = [
-  { path: '', redirectTo: '/listagem', pathMatch: 'full' },
+  { path: '', redirectTo: '/cadastro', pathMatch: 'full' },
   { path: 'cadastro', component: CadastroComponent },
   {
     path: 'listagem',

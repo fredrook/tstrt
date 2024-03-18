@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
   templateUrl: './cliente-list.component.html',
   styleUrls: ['./cliente-list.component.css'],
 })
-export class ClienteListComponent implements OnInit {
+export class ClienteListComponent implements OnInit, AfterViewInit {
   clientes: any[] = [];
   clientesFiltrados: any[] = [];
   cpfInput: string = '';
@@ -16,6 +16,29 @@ export class ClienteListComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit(): void {
+    const cpfInput = document.getElementById('cpfInput') as HTMLInputElement;
+    if (cpfInput) {
+      cpfInput.addEventListener('input', () => {
+        let cpf = cpfInput.value;
+        cpf = cpf.replace(/\D/g, '');
+
+        if (cpf.length > 11) cpf = cpf.slice(0, 11);
+
+        cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+
+        if (cpf.length > 14) cpf = cpf.slice(0, 14);
+
+        cpfInput.value = cpf;
+      });
+    }
+  }
+
+  validarEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   incluirCliente(): void {
     const nome = (<HTMLInputElement>document.getElementById('nomeInput')).value;
@@ -31,6 +54,15 @@ export class ClienteListComponent implements OnInit {
         icon: 'error',
         title: 'Oops...',
         text: 'Por favor, preencha todos os campos!',
+      });
+      return;
+    }
+
+    if (!this.validarEmail(email)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Email inválido!',
       });
       return;
     }
@@ -156,11 +188,11 @@ export class ClienteListComponent implements OnInit {
     Swal.fire({
       title: 'Editar Cliente',
       html: `
-        <input id="nome" class="swal2-input" value="${cliente.nome}" placeholder="Nome">
-        <input id="email" class="swal2-input" value="${cliente.email}" placeholder="Email">
-        <input id="cpf" class="swal2-input" value="${cliente.cpf}" placeholder="CPF">
-        <input id="criadoEm" class="swal2-input" value="${cliente.criadoEm}" placeholder="Data de Criação (DD/MM/AAAA)">
-      `,
+      <input id="nome" class="swal2-input" value="${cliente.nome}" placeholder="Nome">
+      <input id="email" class="swal2-input" value="${cliente.email}" placeholder="Email">
+      <input id="cpf" class="swal2-input" value="${cliente.cpf}" placeholder="CPF">
+      <input id="criadoEm" class="swal2-input" value="${cliente.criadoEm}" placeholder="Data de Criação (DD/MM/AAAA)">
+    `,
       showCancelButton: true,
       confirmButtonText: 'Salvar',
       cancelButtonText: 'Cancelar',
@@ -168,9 +200,49 @@ export class ClienteListComponent implements OnInit {
         const nome = (<HTMLInputElement>document.getElementById('nome')).value;
         const email = (<HTMLInputElement>document.getElementById('email'))
           .value;
-        const cpf = (<HTMLInputElement>document.getElementById('cpf')).value;
-        const criadoEm = (<HTMLInputElement>document.getElementById('criadoEm'))
+        let cpf = (<HTMLInputElement>document.getElementById('cpf')).value;
+        let criadoEm = (<HTMLInputElement>document.getElementById('criadoEm'))
           .value;
+
+        if (!nome || !email || !cpf || !criadoEm) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Por favor, preencha todos os campos!',
+          });
+          return false;
+        }
+
+        if (!this.validarEmail(email)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Email inválido!',
+          });
+          return false;
+        }
+
+        cpf = cpf.replace(/\D/g, '');
+
+        if (cpf.length !== 11) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'CPF deve conter 11 números!',
+          });
+          return false;
+        }
+
+        cpf = cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+
+        if (!/^\d{2}\/\d{2}\/\d{4}$/.test(criadoEm)) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Data inválida! Utilize o formato DD/MM/AAAA',
+          });
+          return false;
+        }
 
         cliente.nome = nome;
         cliente.email = email;
@@ -184,6 +256,7 @@ export class ClienteListComponent implements OnInit {
           title: 'Cliente atualizado!',
           text: 'Os dados do cliente foram atualizados com sucesso.',
         });
+        return true;
       },
     });
   }

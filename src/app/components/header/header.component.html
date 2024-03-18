@@ -4,6 +4,35 @@
     <a routerLink="/listagem" class="btn1">Lista</a>
     <img class="imgLogoElipse" src="../../../../assets/Ellipse.png" alt="" />
     <a *ngIf="!isCadastrado" routerLink="/cadastro" class="btn2">Cadastro</a>
+    <a *ngIf="isCadastrado" (click)="modalPerfil()" class="btn3">Perfil</a>
+    <img
+      *ngIf="isCadastrado"
+      class="imgLogoElipse"
+      src="../../../../assets/Ellipse.png"
+      alt=""
+    />
     <a *ngIf="isCadastrado" (click)="logout()" class="btn2">Sair</a>
+  </div>
+</div>
+
+<div *ngIf="showModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeModal()">&times;</span>
+    <p><strong>Nome:</strong> {{ clienteData.nome }}</p>
+    <p><strong>Email:</strong> {{ clienteData.email }}</p>
+    <p><strong>CPF:</strong> {{ clienteData.cpf | cpf  }}</p>
+    <p><strong>CEP:</strong> {{ clienteData.cep }}</p>
+    <p>
+      <strong>Cartão de Crédito:</strong>
+      {{ clienteData.cdcredito ? "Sim" : "Não" }}
+    </p>
+    <p><strong>Boleto:</strong> {{ clienteData.boleto ? "Sim" : "Não" }}</p>
+    <p><strong>Nome no Cartão:</strong> {{ clienteData.nomeCard }}</p>
+    <p>
+      <strong>Data de Expiração:</strong> {{ clienteData.dataExpiracao }}/{{
+        clienteData.ano
+      }}
+    </p>
+    <p><strong>Número do Cartão:</strong> {{ clienteData.numbCard }}</p>
   </div>
 </div>

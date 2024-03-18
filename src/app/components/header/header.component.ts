@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent implements OnInit {
   isCadastrado: boolean = false;
+  showModal: boolean = false;
+  clienteData: any;
 
   constructor(private router: Router) {}
 
@@ -20,5 +22,14 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('cliente');
     this.isCadastrado = false;
     this.router.navigateByUrl('/cadastro');
+  }
+
+  modalPerfil(): void {
+    this.clienteData = JSON.parse(localStorage.getItem('cliente') || '{}');
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 }

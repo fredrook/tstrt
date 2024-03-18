@@ -263,7 +263,7 @@ export class CadastroClienteComponent implements OnInit {
         icon: 'success',
         title: 'Cadastro realizado com sucesso!',
         showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
       }).then(() => {
         this.router.navigate(['/listagem']);
       });

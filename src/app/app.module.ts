@@ -35,7 +35,6 @@ import { HttpClientModule } from '@angular/common/http';
     ClienteListComponent,
     CadastroComponent,
     CadastroClienteComponent,
-    
   ],
   providers: [ValidadorCEPService],
   bootstrap: [AppComponent],

@@ -35,7 +35,7 @@ const routes: Routes = [
     path: 'listagem',
     component: ListagemComponent,
     canActivate: [CadastroGuard],
-  }, // Use o guard de rota
+  },
 ];
 
 @NgModule({

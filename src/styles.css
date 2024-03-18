@@ -1,28 +1,24 @@
-/* Reset de estilos */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilos básicos de corpo e fonte */
 body {
   font-family: "Koh Santepheap", sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
 
-/* Links */
 a {
   text-decoration: none;
-  color: inherit; /* Herda a cor do texto padrão */
+  color: inherit;
 }
 
 a:hover {
   text-decoration: underline;
 }
 
-/* Títulos */
 h1,
 h2,
 h3,
@@ -32,17 +28,14 @@ h6 {
   margin-bottom: 10px;
 }
 
-/* Parágrafos */
 p {
   margin-bottom: 20px;
 }
 
-/* Lista não ordenada */
 ul {
   list-style-type: none;
 }
 
-/* Botões */
 button,
 .btn {
   cursor: pointer;
@@ -51,7 +44,6 @@ button,
   border-radius: 5px;
 }
 
-/* Formulários */
 input,
 textarea {
   padding: 10px;
@@ -59,14 +51,12 @@ textarea {
   border: 1px solid #ccc;
 }
 
-/* Layout */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Espaçamento */
 .mb-1 {
   margin-bottom: 10px;
 }
@@ -75,29 +65,28 @@ textarea {
   margin-bottom: 20px;
 }
 
-/* Cores */
 .primary {
-  color: #007bff; /* Azul primário */
+  color: #007bff;
 }
 
 .secondary {
-  color: #6c757d; /* Cinza escuro */
+  color: #6c757d;
 }
 
 .success {
-  color: #28a745; /* Verde */
+  color: #28a745;
 }
 
 .danger {
-  color: #dc3545; /* Vermelho */
+  color: #dc3545;
 }
 
 .warning {
-  color: #ffc107; /* Amarelo */
+  color: #ffc107;
 }
 
 .info {
-  color: #17a2b8; /* Azul claro */
+  color: #17a2b8;
 }
 
 .koh-santepheap-thin {

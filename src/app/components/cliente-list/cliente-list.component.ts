@@ -15,7 +15,17 @@ export class ClienteListComponent implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.carregarClientes();
+  }
+
+  carregarClientes(): void {
+    const storedClientes = localStorage.getItem('clientes');
+    if (storedClientes) {
+      this.clientes = JSON.parse(storedClientes);
+      this.clientesFiltrados = [...this.clientes];
+    }
+  }
 
   ngAfterViewInit(): void {
     const cpfInput = document.getElementById('cpfInput') as HTMLInputElement;

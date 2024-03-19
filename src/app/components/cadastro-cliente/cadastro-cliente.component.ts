@@ -59,7 +59,7 @@ export class CadastroClienteComponent implements OnInit {
       cidade: [''],
       cdcredito: [false],
       boleto: [false],
-      nomeCard:  [null, Validators.pattern('[^0-9]*')],
+      nomeCard: [null, Validators.pattern('[^0-9]*')],
       dataExpiracao: [null, Validators.required],
       ano: [null, Validators.required],
       numbCard: [
@@ -155,14 +155,14 @@ export class CadastroClienteComponent implements OnInit {
     }
 
     const nomeCardInput = this.registrarForm.get('nomeCard');
-  if (nomeCardInput) {
-    nomeCardInput.valueChanges.subscribe((value) => {
-      let nomeCardValue: string = value.replace(/[0-9]/g, '');
-      this.registrarForm.patchValue({
-        nomeCard: nomeCardValue,
+    if (nomeCardInput) {
+      nomeCardInput.valueChanges.subscribe((value) => {
+        let nomeCardValue: string = value.replace(/[0-9]/g, '');
+        this.registrarForm.patchValue({
+          nomeCard: nomeCardValue,
+        });
       });
-    });
-  }
+    }
   }
 
   buscarEnderecoPorCep(cep: string) {
@@ -243,7 +243,7 @@ export class CadastroClienteComponent implements OnInit {
   salvar(): void {
     const cdCreditoChecked = this.registrarForm.get('cdcredito')?.value;
     const boletoChecked = this.registrarForm.get('boleto')?.value;
-  
+
     if (!cdCreditoChecked && !boletoChecked) {
       Swal.fire({
         icon: 'error',
@@ -252,13 +252,26 @@ export class CadastroClienteComponent implements OnInit {
       });
       return;
     }
-  
+
     if (this.registrarForm.valid) {
       const clienteData = this.registrarForm.value;
+      const dataAtual = new Date();
+      const dia = String(dataAtual.getDate()).padStart(2, '0');
+      const mes = String(dataAtual.getMonth() + 1).padStart(2, '0');
+      const ano = dataAtual.getFullYear();
+      const dataFormatada = `${dia}/${mes}/${ano}`;
+      clienteData.criadoEm = dataFormatada;
+
       localStorage.setItem('cliente', JSON.stringify(clienteData));
       this.isCadastrado = true;
       localStorage.setItem('isCadastrado', JSON.stringify(true));
-  
+
+      const clientesLocalStorage = JSON.parse(
+        localStorage.getItem('clientes') || '[]'
+      );
+      clientesLocalStorage.push(clienteData);
+      localStorage.setItem('clientes', JSON.stringify(clientesLocalStorage));
+
       Swal.fire({
         icon: 'success',
         title: 'Cadastro realizado com sucesso!',
@@ -269,11 +282,11 @@ export class CadastroClienteComponent implements OnInit {
       });
     } else {
       let errorMessage = 'Por favor, preencha todos os campos corretamente:\n';
-      Object.keys(this.registrarForm.controls).forEach(field => {
+      Object.keys(this.registrarForm.controls).forEach((field) => {
         const control = this.registrarForm.get(field);
         if (control && control.errors) {
           const errors = control.errors;
-          Object.keys(errors).forEach(keyError => {
+          Object.keys(errors).forEach((keyError) => {
             switch (keyError) {
               case 'required':
                 errorMessage += `- O campo ${field} é obrigatório.\n`;
@@ -298,6 +311,4 @@ export class CadastroClienteComponent implements OnInit {
       });
     }
   }
-  
-  
 }

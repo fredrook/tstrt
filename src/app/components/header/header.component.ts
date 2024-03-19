@@ -24,10 +24,10 @@ export class HeaderComponent implements OnInit {
     this.router.navigateByUrl('/cadastro');
   }
 
-  modalPerfil(): void {
+ /*  modalPerfil(): void {
     this.clienteData = JSON.parse(localStorage.getItem('cliente') || '{}');
     this.showModal = true;
-  }
+  } */
 
   closeModal(): void {
     this.showModal = false;

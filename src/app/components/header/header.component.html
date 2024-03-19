@@ -4,18 +4,18 @@
     <a routerLink="/listagem" class="btn1">Lista</a>
     <img class="imgLogoElipse" src="../../../../assets/Ellipse.png" alt="" />
     <a *ngIf="!isCadastrado" routerLink="/cadastro" class="btn2">Cadastro</a>
-    <a *ngIf="isCadastrado" (click)="modalPerfil()" class="btn3">Perfil</a>
+    <!-- <a *ngIf="isCadastrado" (click)="modalPerfil()" class="btn3">Perfil</a>
     <img
       *ngIf="isCadastrado"
       class="imgLogoElipse"
       src="../../../../assets/Ellipse.png"
       alt=""
-    />
+    /> -->
     <a *ngIf="isCadastrado" (click)="logout()" class="btn2">Sair</a>
   </div>
 </div>
 
-<div *ngIf="showModal" class="modal">
+<!-- <div *ngIf="showModal" class="modal">
   <div class="modal-content">
     <span class="close" (click)="closeModal()">&times;</span>
     <p><strong>Nome:</strong> {{ clienteData.nome }}</p>
@@ -36,3 +36,4 @@
     <p><strong>Número do Cartão:</strong> {{ clienteData.numbCard }}</p>
   </div>
 </div>
+ -->
